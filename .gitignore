@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.idea/
+.vscode/
+.DS_Store
+coverage/
+var/
+*.sqlite*
+.omc/
+.claude/
+CLAUDE.local.md
+tmp/
+*.bak
