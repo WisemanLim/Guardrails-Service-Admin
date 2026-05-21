@@ -10,6 +10,8 @@ dist/
 coverage/
 var/
 *.sqlite*
+# TS source files are part of the build, not runtime DB files
+!src/db/schema.sqlite.ts
 .omc/
 .claude/
 CLAUDE.local.md
