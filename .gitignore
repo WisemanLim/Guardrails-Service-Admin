@@ -17,3 +17,5 @@ var/
 CLAUDE.local.md
 tmp/
 *.bak
+
+package-lock.json

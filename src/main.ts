@@ -6,8 +6,13 @@ function parseOrigins(): string[] | true {
   const raw = (process.env.ADMIN_CORS_ORIGINS ?? '').trim();
   if (raw === '*') return true as unknown as string[];
   if (!raw) {
-    // Sensible defaults: Admin Web dev (3001) + standalone preview (3000).
-    return ['http://localhost:3001', 'http://127.0.0.1:3001', 'http://localhost:3000'];
+    // No explicit allowlist → reflect the request origin. The Admin Web is
+    // served from whatever host/IP the deploy uses (e.g. http://<lan-ip>:3001),
+    // which we can't know ahead of time; a fixed localhost list blocked every
+    // remote deploy with a CORS failure (surfaced as "Failed to fetch").
+    // Safe here: auth is Bearer-token (credentials:false), so no cookie/CSRF
+    // surface. Pin ADMIN_CORS_ORIGINS in production for a tighter policy.
+    return true as unknown as string[];
   }
   return raw.split(',').map((s) => s.trim()).filter(Boolean);
 }
